@@ -80,46 +80,48 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Text('Login'),
         ),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            TextField(
-              controller: _usernameController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Username',
-                prefixText: 'Username: ',
-              ),
-            ),
-            TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Password',
-                prefixText: 'Password: ',
-              ),
-            ),
-            Row(
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const RegisterPage()),
-                    );
-                  },
-                  child: const Text('Register'),
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            children: [
+              TextField(
+                controller: _usernameController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Username',
+                  prefixText: 'Username: ',
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    checkUserdata();
-                  },
-                  child: const Text('Login'),
+              ),
+              TextField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Password',
+                  prefixText: 'Password: ',
                 ),
-            ],
-          ),
-        ],
+              ),
+              Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const RegisterPage()),
+                      );
+                    },
+                    child: const Text('Register'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      checkUserdata();
+                    },
+                    child: const Text('Login'),
+                  ),
+              ],
+            ),
+          ],
+        ),
       ),
     ),
   );
