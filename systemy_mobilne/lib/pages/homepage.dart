@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:systemy_mobilne/classes/user.dart';
-import 'pages/profile.dart';
+import 'profile.dart';
+//import 'settings.dart';
+import 'questions_page.dart';
+import 'scan_qr.dart';
 
 class Homepage extends StatefulWidget{
   final User user;
@@ -26,10 +29,10 @@ class _HomepageState extends State<Homepage> {
   void initState(){
     super.initState();
     _pages = [
-    const Center(child: Text('Home Page')),
-    const Center(child: Text('Questions Page')),
+    ScanScreen(user: widget.user),
+    QuestionsPage(user: widget.user),
     Profile(user: widget.user),
-    const Center(child: Text('Settings Page')),
+    //const Center(child: Logout()),
   ];
   }
 
@@ -63,10 +66,10 @@ class _HomepageState extends State<Homepage> {
             text: "Profile"
           ),
 
-          GButton(
+          /*GButton(
             icon: Icons.settings,
             text: "Settings",
-          ),
+          ),*/
         ],
       ),
     );

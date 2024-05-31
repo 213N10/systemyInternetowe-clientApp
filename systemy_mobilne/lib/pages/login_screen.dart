@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:systemy_mobilne/classes/user.dart';
-import '../homepage.dart';
+import 'homepage.dart';
 import 'register_screen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -16,7 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  static const String _url = 'http://127.0.0.1:8000/login/';
+  static const String _url = 'http://192.168.100.46:8000/login/';
 
 
   Future<void> checkUserdata() async {

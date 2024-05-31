@@ -19,7 +19,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _repeatPasswordController = TextEditingController();
-  final String _url = 'http://127.0.0.1:8000/api/users/';
+  final String _url = 'http://192.168.100.46:8000/api/users/';
   User? _user;
   
   void checkUserdata(){
