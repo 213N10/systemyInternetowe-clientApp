@@ -3,7 +3,8 @@ import "package:systemy_mobilne/pages/login_screen.dart";
 
 
 class Logout extends StatelessWidget {
-  const Logout({super.key});
+  final String ip;
+  const Logout({super.key, required this.ip});
 
 
   @override
@@ -11,7 +12,7 @@ class Logout extends StatelessWidget {
     return ElevatedButton(onPressed:() {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
+          MaterialPageRoute(builder: (context) => LoginScreen(ip:ip)),
         );
     }, child: const Text('Logout'));
 

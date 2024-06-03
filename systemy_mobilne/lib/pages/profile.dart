@@ -7,8 +7,9 @@ import 'dart:convert';
 
 
 class Profile extends StatefulWidget {
+  final String ip;
   final User user;
-  const Profile({super.key, required this.user});
+  const Profile({super.key, required this.user, required this.ip});
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -29,7 +30,7 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
-    url = "http://192.168.100.46:8000/api/users/${widget.user.id}/";
+    url = "${widget.ip}/api/users/${widget.user.id}/";
     //print(url);
   }
   
@@ -213,7 +214,7 @@ class _ProfileState extends State<Profile> {
           ElevatedButton(onPressed:() {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()),
+              MaterialPageRoute(builder: (context) =>  LoginScreen(ip: widget.ip)),
               );
           }, 
           child: const Text('Logout')

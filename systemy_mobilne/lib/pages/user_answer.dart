@@ -7,8 +7,9 @@ import 'dart:convert';
 
 class UserAnswer extends StatefulWidget {
   final Question question;
+  final String ip;
   final User user;
-  const UserAnswer({super.key, required this.question, required this.user});
+  const UserAnswer({super.key, required this.question, required this.user, required this.ip});
 
   @override
   State<UserAnswer> createState() => _UserAnswerState();
@@ -69,7 +70,7 @@ class _UserAnswerState extends State<UserAnswer> {
 
   Future<http.Response>postAnswer(UsersAnswers userAnswer) async {
     final response = await http.post(
-      Uri.parse("http://192.168.100.46:8000/api/user-answers/"),
+      Uri.parse("${widget.ip}/api/user-answers/"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

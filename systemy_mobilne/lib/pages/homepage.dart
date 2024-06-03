@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:systemy_mobilne/classes/user.dart';
 import 'profile.dart';
@@ -9,7 +10,8 @@ import 'scan_qr.dart';
 class Homepage extends StatefulWidget{
   final User user;
   final String token;
-  const Homepage({super.key, required this.user, required this.token});
+  final String ip;
+  const Homepage({super.key, required this.user, required this.token, required this.ip});
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -29,9 +31,9 @@ class _HomepageState extends State<Homepage> {
   void initState(){
     super.initState();
     _pages = [
-    ScanScreen(user: widget.user),
-    QuestionsPage(user: widget.user),
-    Profile(user: widget.user),
+    ScanScreen(user: widget.user, ip: widget.ip,),
+    QuestionsPage(user: widget.user, ip: widget.ip),
+    Profile(user: widget.user, ip: widget.ip),
     //const Center(child: Logout()),
   ];
   }

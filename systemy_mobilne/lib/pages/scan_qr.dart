@@ -5,11 +5,13 @@ import 'package:http/http.dart' as http;
 import 'package:systemy_mobilne/classes/question.dart';
 import 'package:systemy_mobilne/classes/user.dart';
 import 'user_answer.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 
 class ScanScreen extends StatefulWidget {
+  final String ip;
   final User user;
-  const ScanScreen({super.key, required this.user});
+  const ScanScreen({super.key, required this.user, required this.ip});
 
   @override
   State<ScanScreen> createState() => _ScanScreenState();
@@ -37,6 +39,23 @@ class _ScanScreenState extends State<ScanScreen> {
               fontSize: 28.0
             ),
           ),
+          /*Expanded(
+            child: Container(
+              margin: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+              ),
+              child: MobileScanner(
+                allowDuplicates: false,
+                onDetect: (barcode, args) {
+                final String? code = barcode.rawValue;
+                print(code);
+            },
+          ), // Tutaj umieść skaner, np. MobileScanner
+            ),
+          ),
+          */
           ElevatedButton(
             onPressed: testownie, 
             child: const Text('Scan QR Code'))
@@ -54,12 +73,12 @@ class _ScanScreenState extends State<ScanScreen> {
     print(question.question);
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => UserAnswer(question: question, user:widget.user)),
+      MaterialPageRoute(builder: (context) => UserAnswer(question: question, user:widget.user, ip:widget.ip,)),
       );
   }
 
   Future<http.Response> fetchQuestion() async {
-    const url = "http://192.168.100.46:8000/api/questions/random/";
+    final url = "${widget.ip}/api/questions/random/";
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       print('Questions fetched');

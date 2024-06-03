@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           primary: const Color.fromARGB(255, 29, 238, 81), 
           ),
       ),
-      home: const LoginScreen(),
+      home: const LoginScreen(ip: "http://192.168.248.144:8000",),
     );
   }
 }

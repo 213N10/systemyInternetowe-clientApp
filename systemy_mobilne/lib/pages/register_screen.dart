@@ -7,7 +7,8 @@ import 'dart:convert';
 
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  final String ip;
+  const RegisterPage({super.key, required this.ip});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -19,7 +20,13 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _repeatPasswordController = TextEditingController();
-  final String _url = 'http://192.168.100.46:8000/api/users/';
+  late String _url;
+
+  @override
+  void initState() {
+    super.initState();
+    _url = '${widget.ip}/api/users/';
+  }
   User? _user;
   
   void checkUserdata(){

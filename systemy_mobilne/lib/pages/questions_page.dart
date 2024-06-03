@@ -6,8 +6,9 @@ import 'dart:convert';
 
 
 class QuestionsPage extends StatefulWidget {
-  const QuestionsPage({super.key, required this.user});
+  const QuestionsPage({super.key, required this.user, required this.ip});
   final User user;
+  final String ip;
 
   @override
   State<QuestionsPage> createState() => _QuestionsPageState();
@@ -17,13 +18,15 @@ class _QuestionsPageState extends State<QuestionsPage> {
   final List<UsersAnswers> userAnswers = [];
   int userPoints = 0;
 
-  final String baseUrl = "http://192.168.100.46:8000/api/user-answers/";
+  String baseUrl = "";
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
+    baseUrl = "${widget.ip}/api/user-answers/";
     getAnswers(widget.user.id);
   }
+
 
   Future<void> getAnswers(int id) async {
     final response = await http.get(Uri.parse("$baseUrl?user_id=${widget.user.id}"));

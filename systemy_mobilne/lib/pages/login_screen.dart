@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final String ip;
+  const LoginScreen({super.key, required this.ip});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -16,13 +17,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  static const String _url = 'http://192.168.100.46:8000/login/';
+  
 
 
   Future<void> checkUserdata() async {
     final String _username = _usernameController.text;
     final String _password = _passwordController.text;
-    print(_username);
+    
     final _response = await loginUser(_username, _password);
     print(_response.statusCode);
     if (_response.statusCode == 200){
@@ -31,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
       final User _user = User.fromJson(_data['user']);
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Homepage(user: _user,token: _token)),
+        MaterialPageRoute(builder: (context) => Homepage(user: _user,token: _token, ip: widget.ip,)),
       );
     }
     else{
@@ -44,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<http.Response> loginUser(String username, String password) async {
     final response = await http.post(
-      Uri.parse(_url),
+      Uri.parse('${widget.ip}/login/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -107,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const RegisterPage()),
+                        MaterialPageRoute(builder: (context) => RegisterPage(ip:widget.ip)),
                       );
                     },
                     child: const Text('Register'),
