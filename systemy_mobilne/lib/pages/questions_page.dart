@@ -6,7 +6,8 @@ import 'dart:convert';
 
 
 class QuestionsPage extends StatefulWidget {
-  const QuestionsPage({super.key, required this.user, required this.ip});
+  final String token;
+  const QuestionsPage({super.key, required this.user, required this.ip, required this.token});
   final User user;
   final String ip;
 
@@ -29,7 +30,13 @@ class _QuestionsPageState extends State<QuestionsPage> {
 
 
   Future<void> getAnswers(int id) async {
-    final response = await http.get(Uri.parse("$baseUrl?user_id=${widget.user.id}"));
+    final response = await 
+    http.get(Uri.parse("$baseUrl?user_id=${widget.user.id}"),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Token ${widget.token}'
+      },
+      );
     if (response.statusCode == 200){
       final List<dynamic> data = jsonDecode(response.body);
       for (var item in data){
@@ -53,7 +60,6 @@ class _QuestionsPageState extends State<QuestionsPage> {
           const Text(
             'Odpowiedzi użytkownika',
             style: TextStyle(
-              color: Colors.black,
               fontSize: 28.0
             ),
           ),
@@ -110,7 +116,7 @@ class _QuestionsPageState extends State<QuestionsPage> {
                 padding: const EdgeInsets.all(5),
                 height: 50,
                 margin: const EdgeInsets.all(5),
-                color: Colors.amber[600],
+                color: const Color.fromARGB(255, 171, 121, 4),
                 child: Center(child: 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

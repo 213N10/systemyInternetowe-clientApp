@@ -10,8 +10,9 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 
 class ScanScreen extends StatefulWidget {
   final String ip;
+  final String token;
   final User user;
-  const ScanScreen({super.key, required this.user, required this.ip});
+  const ScanScreen({super.key, required this.user, required this.ip, required this.token});
 
   @override
   State<ScanScreen> createState() => _ScanScreenState();
@@ -35,11 +36,10 @@ class _ScanScreenState extends State<ScanScreen> {
           const Text(
             'Scan Screen',
             style: TextStyle(
-              color: Colors.black,
               fontSize: 28.0
             ),
           ),
-          /*Expanded(
+          Expanded(
             child: Container(
               margin: const EdgeInsets.all(10.0),
               padding: const EdgeInsets.all(10.0),
@@ -48,14 +48,23 @@ class _ScanScreenState extends State<ScanScreen> {
               ),
               child: MobileScanner(
                 allowDuplicates: false,
-                onDetect: (barcode, args) {
-                final String? code = barcode.rawValue;
-                print(code);
+                onDetect: (barcode, args) async {
+                  final String? code = barcode.rawValue;
+                  //print(code);
+                  final response = await fetchQuestion(code!);
+                  
+                  final data = jsonDecode(response.body);
+                  final question = Question.fromJson(data);
+                  //print(question.question);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => UserAnswer(question: question, user:widget.user, ip:widget.ip,token: widget.token)),
+                    );
             },
-          ), // Tutaj umieść skaner, np. MobileScanner
+          ), 
             ),
           ),
-          */
+          
           ElevatedButton(
             onPressed: testownie, 
             child: const Text('Scan QR Code'))
@@ -66,26 +75,30 @@ class _ScanScreenState extends State<ScanScreen> {
 
 
   void testownie() async {
-    print('Scan QR Code');
-    final response = await fetchQuestion();
+    //print('Scan QR Code');
+    final response = await fetchQuestion("W1");
     final data = jsonDecode(response.body);
     final question = Question.fromJson(data);
-    print(question.question);
+    //print(question.question);
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => UserAnswer(question: question, user:widget.user, ip:widget.ip,)),
+      MaterialPageRoute(builder: (context) => UserAnswer(question: question, user:widget.user, ip:widget.ip,token: widget.token,)),
       );
   }
 
-  Future<http.Response> fetchQuestion() async {
-    final url = "${widget.ip}/api/questions/random/";
-    final response = await http.get(Uri.parse(url));
+  Future<http.Response> fetchQuestion(String wydzial) async {
+    final url = "${widget.ip}/api/questions/random/?location=$wydzial";
+    final response = await http.get(Uri.parse(url),
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Token ${widget.token}',
+    });
     if (response.statusCode == 200) {
-      print('Questions fetched');
+      //print('Questions fetched');
       return response;
     }
     else {
-      print('Failed to fetch questions');
+      //print('Failed to fetch questions');
       return response;
     }
   }

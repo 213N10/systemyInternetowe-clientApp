@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:systemy_mobilne/classes/user.dart';
 import 'profile.dart';
@@ -31,9 +30,9 @@ class _HomepageState extends State<Homepage> {
   void initState(){
     super.initState();
     _pages = [
-    ScanScreen(user: widget.user, ip: widget.ip,),
-    QuestionsPage(user: widget.user, ip: widget.ip),
-    Profile(user: widget.user, ip: widget.ip),
+    ScanScreen(user: widget.user, ip: widget.ip,token: widget.token),
+    QuestionsPage(user: widget.user, ip: widget.ip, token: widget.token),
+    Profile(user: widget.user, ip: widget.ip, token: widget.token),
     //const Center(child: Logout()),
   ];
   }

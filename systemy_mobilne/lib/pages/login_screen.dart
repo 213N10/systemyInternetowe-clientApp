@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final String _password = _passwordController.text;
     
     final _response = await loginUser(_username, _password);
-    print(_response.statusCode);
+    //print(_response.statusCode);
     if (_response.statusCode == 200){
       final _data = jsonDecode(_response.body);
       final String _token = _data['token'];
@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     }
     else{
-      print('Failed to log in');
+      //print('Failed to log in');
     }
     
     
@@ -56,11 +56,11 @@ class _LoginScreenState extends State<LoginScreen> {
       
     );
     if (response.statusCode == 200) {
-      print('User logged in');
+      //print('User logged in');
       return response;
     } 
     else {
-      print("Failed to log in");
+      //print("Failed to log in");
       return response;
     }
   }

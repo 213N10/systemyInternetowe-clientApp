@@ -1,21 +1,21 @@
 class Question {
   String question;
-  int points_for_question;
-  String correct_answer;
+  int pointsForQuestion;
+  String correctAnswer;
   String option_1 ;
   String option_2;
   String option_3;
   String option_4;
   String locations;
 
-  Question({required this.question, required this.points_for_question, required this.correct_answer, required this.option_1, required this.option_2, required this.option_3, required this.option_4, required this.locations});
+  Question({required this.question, required this.pointsForQuestion, required this.correctAnswer, required this.option_1, required this.option_2, required this.option_3, required this.option_4, required this.locations});
 
   Question.fromJson(Map<String, dynamic> json)
   :
     question = json['question'] as String,
 
-    points_for_question = json['points_for_question'] as int,
-    correct_answer = json['correct_answer'] as String,
+    pointsForQuestion = json['points_for_question'] as int,
+    correctAnswer = json['correct_answer'] as String,
     option_1 = json['option_1'] as String,
     option_2 = json['option_2'] as String,
     option_3 = json['option_3'] as String,
@@ -25,8 +25,8 @@ class Question {
 
   Map<String, dynamic> toJson() => {
     'question': question,
-    'points_for_question': points_for_question,
-    'correct_answer': correct_answer,
+    'points_for_question': pointsForQuestion,
+    'correct_answer': correctAnswer,
     'option_1': option_1,
     'option_2': option_2,
     'option_3': option_3,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import '../classes/user.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -34,9 +33,9 @@ class _RegisterPageState extends State<RegisterPage> {
       if(_passwordController.text == _repeatPasswordController.text){
         _user = User(username: _usernameController.text, email: _emailController.text, password: _passwordController.text);
         var response = createUser(_user!);
-        print(response);
+        //print(response);
       } else {
-        print('Passwords do not match');
+        //print('Passwords do not match');
         }
       }
     );
@@ -51,11 +50,11 @@ class _RegisterPageState extends State<RegisterPage> {
       body: jsonEncode(user.toJson()),
     );
     if (response.statusCode == 201) {
-      print('User created');
+      //print('User created');
       return response;
     } 
     else {
-      print("Failed to create user");
+      //print("Failed to create user");
       return null;
     }
     

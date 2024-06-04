@@ -8,8 +8,9 @@ import 'dart:convert';
 
 class Profile extends StatefulWidget {
   final String ip;
+  final String token;
   final User user;
-  const Profile({super.key, required this.user, required this.ip});
+  const Profile({super.key, required this.user, required this.ip, required this.token});
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -47,7 +48,6 @@ class _ProfileState extends State<Profile> {
           const Text(
             'Ustawienia konta',
             style: TextStyle(
-              color: Colors.black,
               fontSize: 28.0
             ),
           ),
@@ -80,6 +80,7 @@ class _ProfileState extends State<Profile> {
                   Uri.parse(url),
                   headers: <String, String>{
                     'Content-Type': 'application/json; charset=UTF-8',
+                    'Authorization': 'Token ${widget.token}'
                   },
                   body: jsonEncode(<String, String>{
                     'username': _usernameController.text,
@@ -88,17 +89,68 @@ class _ProfileState extends State<Profile> {
                 
                 
                 if (response.statusCode == 200){
-                  print('Username changed');
-                  print(response.body); // Zwraca zmienionego użytkownika (zaktualizowanego
+                  //print('Username changed');
+                  //print(response.body); // Zwraca zmienionego użytkownika (zaktualizowanego
                   widget.user.username = _usernameController.text;
-                  print(widget.user.username);
+                  //print(widget.user.username);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Success'),
+                        content: const Text('Username changed successfully.'),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('OK'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 }
                 else {
-                  print('Failed to change username');
+                  //print('Failed to change username');
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Epic Fail'),
+                        content: const Text('Username wasnt changed.'),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('OK'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 }
               }
               else {
-                print('Username does not match');
+                //print('Username does not match');
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Fail'),
+                        content: const Text('Username doesnt match.'),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('OK'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
               }
             },
              
@@ -136,22 +188,75 @@ class _ProfileState extends State<Profile> {
                   Uri.parse(url),
                   headers: <String, String>{
                     'Content-Type': 'application/json; charset=UTF-8',
+                    'Authorization': 'Token ${widget.token}'
                   },
                   body: jsonEncode(<String, String>{
                     'password': _passwordController.text,
                   }),
                 );
                 if (response.statusCode == 200){
-                  print('Password changed');
-                  print(response.body); // Zwraca zmienionego użytkownika (zaktualizowanego
+                  //print('Password changed');
+                  //print(response.body); // Zwraca zmienionego użytkownika (zaktualizowanego
                   widget.user.password = _passwordController.text;
+
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Success'),
+                        content: const Text('Password changed successfully.'),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('OK'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 }
                 else {
-                  print('Failed to change password');
+                  //print('Failed to change password');
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Epic Fail'),
+                        content: const Text('Password wasnt changed.'),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('OK'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 }
               }
               else {
                 print('Password does not match');
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Fail'),
+                        content: const Text('Password doesnt match.'),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('OK'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
               }
             },
              
@@ -189,22 +294,74 @@ class _ProfileState extends State<Profile> {
                   Uri.parse(url),
                   headers: <String, String>{
                     'Content-Type': 'application/json; charset=UTF-8',
+                    'Authorization': 'Token ${widget.token}'
                   },
                   body: jsonEncode(<String, String>{
                     'email': _emailController.text,
                   }),
                 );
                 if (response.statusCode == 200){
-                  print('Email changed');
-                  print(response.body); // Zwraca zmienionego użytkownika (zaktualizowanego
+                  //print('Email changed');
+                  //print(response.body); // Zwraca zmienionego użytkownika (zaktualizowanego
                   widget.user.email = _emailController.text;
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Success'),
+                        content: const Text('email changed successfully.'),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('OK'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 }
                 else {
-                  print('Failed to change email');
+                  //print('Failed to change email');
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Epic fail'),
+                        content: const Text('Password wasnt changed.'),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('OK'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 }
               }
               else {
-                print('Email does not match');
+                //print('Email does not match');
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Fail'),
+                        content: const Text('Email doesnt match.'),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('OK'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
               } 
             },
              

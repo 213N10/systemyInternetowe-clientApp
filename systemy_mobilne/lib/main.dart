@@ -12,10 +12,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Kreatywna nazwa aplikacji',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          //brightness: Brightness.dark,//może walnąć przełącznik jasny/ciemny
+          brightness: Brightness.dark,//może walnąć przełącznik jasny/ciemny
           seedColor: const Color.fromARGB(255, 9, 112, 196),
           primary: const Color.fromARGB(255, 29, 238, 81), 
           ),
